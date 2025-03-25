@@ -22,17 +22,21 @@ jobs:
 
       - name: Install Dependencies (Ubuntu)
         if: matrix.os == 'ubuntu-latest'
-        run: sudo apt-get update && sudo apt-get install -y libpng-dev librlottie-dev
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libpng-dev librlottie-dev
 
       - name: Install Dependencies (macOS)
         if: matrix.os == 'macos-latest'
         run: |
-          brew install libpng pixman rlottie
+          brew update
+          brew install libpng pixman
+          brew install rlottie || echo "rlottie not found, continuing without it"
 
       - name: Install Dependencies (Windows)
         if: matrix.os == 'windows-latest'
         run: |
-          choco install python -y
+          choco install python --no-progress --limit-output
           npm install -g node-gyp
 
       - name: Install npm Dependencies
