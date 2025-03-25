@@ -1,6 +1,6 @@
 {
   "name": "lottie-frame",
-  "version": "1.0.9",
+  "version": "1.0.10",
   "description": "Convert Lottie animations to PNG frames using Node.js and C++",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
@@ -22,7 +22,8 @@
     "url": "git+https://github.com/sanyok12345/lottie-frame.git"
   },
   "files": [
-    "src"
+    "src",
+    "binding.gyp"
   ],
   "keywords": [
     "lottie",
