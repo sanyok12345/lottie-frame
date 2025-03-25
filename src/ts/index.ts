@@ -1,11 +1,7 @@
 import { Buffer } from "node:buffer";
-import { join, dirname } from "node:path";
-import { fileURLToPath } from "node:url";
+import { join } from "node:path";
 
-const isESM = typeof __dirname === "undefined";
-const moduleDir = isESM
-  ? dirname(fileURLToPath(import.meta.url)) // Для ESM
-  : __dirname; // Для CommonJS
+const moduleDir = __dirname;
 
 /**
  * Options for exporting a frame from a Lottie animation.
