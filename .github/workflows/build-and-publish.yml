@@ -24,8 +24,8 @@ jobs:
         if: matrix.os == 'ubuntu-latest'
         run: |
           sudo apt-get update
-          sudo apt-get install -y libpng-dev librlottie-dev pixman
-
+          sudo apt-get install -y libpng-dev libpixman-1-dev librlottie-dev
+        
       - name: Install Dependencies (macOS)
         if: matrix.os == 'macos-latest'
         run: |
