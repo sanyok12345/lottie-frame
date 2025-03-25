@@ -23,7 +23,8 @@
     "url": "git+https://github.com/sanyok12345/lottie-frame.git"
   },
   "files": [
-    "lib"
+    "lib",
+    "prebuilds"
   ],
   "keywords": [
     "lottie",
@@ -34,15 +35,18 @@
   ],
   "scripts": {
     "build": "tsc && node-gyp rebuild",
-    "prepublishOnly": "npm run build",
-    "install": "node-gyp rebuild"
+    "prebuild": "prebuild --all --strip",
+    "prepublishOnly": "npm run build && npm run prebuild",
+    "install": "prebuild-install || node-gyp rebuild"
   },
   "dependencies": {
-    "node-addon-api": "^7.0.0"
+    "node-addon-api": "^7.0.0",
+    "prebuild-install": "^7.1.2"
   },
   "devDependencies": {
     "@types/node": "^22.13.13",
     "node-gyp": "^11.1.0",
+    "prebuild": "^13.0.1",
     "typescript": "^5.8.2"
   }
 }
