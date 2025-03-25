@@ -35,7 +35,7 @@
   ],
   "scripts": {
     "build": "tsc && node-gyp rebuild",
-    "prebuild": "prebuild --all --strip",
+    "prebuild": "OPENSSL_FIPS='' prebuild --runtime napi --target 6 --target 7 --target 8 --target 9 --strip",
     "prepublishOnly": "npm run build && npm run prebuild",
     "install": "prebuild-install || node-gyp rebuild"
   },
@@ -48,5 +48,13 @@
     "node-gyp": "^11.1.0",
     "prebuild": "^13.0.1",
     "typescript": "^5.8.2"
+  },
+  "binary": {
+    "napi_versions": [
+      6,
+      7,
+      8,
+      9
+    ]
   }
 }
