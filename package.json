@@ -1,6 +1,6 @@
 {
   "name": "lottie-frame",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Convert Lottie animations to PNG frames using Node.js and C++",
   "main": "lib/cjs/index.js",
   "exports": {
