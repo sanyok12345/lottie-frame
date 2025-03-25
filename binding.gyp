@@ -3,10 +3,10 @@
     {
       "target_name": "lottie-frame",
       "sources": [
-        "src/module.cc",
-        "src/exports.cc",
         "src/animation.cc",
         "src/converter.cc",
+        "src/exports.cc",
+        "src/module.cc",
         "src/png_writer.cc",
         "src/utils.cc"
       ],
@@ -21,7 +21,8 @@
       "cflags_cc!": ["-fno-exceptions"],
       "defines": [
         "NAPI_DISABLE_CPP_EXCEPTIONS",
-        "LOTTIE_FRAME_API_EXPORTS"
+        "LOTTIE_FRAME_API_EXPORTS",
+        "OPENSSL_NO_FIPS=1"
       ],
       "conditions": [
         ["OS=='mac'", {
