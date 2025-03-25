@@ -1,7 +1,7 @@
 import { Buffer } from "node:buffer";
 import { join } from "node:path";
 
-const moduleDir = join(__dirname, "..");
+const moduleDir = __dirname;
 
 /**
  * Options for exporting a frame from a Lottie animation.
