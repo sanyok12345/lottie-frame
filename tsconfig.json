@@ -1,13 +1,23 @@
 {
-  "compilerOptions": {
-    "target": "es2018",
-    "module": "esnext",
-    "declaration": true,
-    "outDir": "./lib",
-    "rootDir": "./src/ts",
-    "strict": true,
-    "esModuleInterop": true,
-    "moduleResolution": "node"
+  "ts-node": {
+    "compilerOptions": {
+      "module": "CommonJS"
+    }
   },
-  "include": ["src/ts/**/*.ts"]
+  "compilerOptions": {
+    "target": "ES2019",
+    "module": "ESNext",
+    "lib": ["ES2019", "DOM", "ESNext"],
+    "moduleResolution": "Node",
+    "strict": true,
+    "declaration": true,
+    "strictNullChecks": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "noEmit": false,
+    "outDir": "lib",
+    "moduleDetection": "force"
+  },
+  "include": ["src/ts/**/*"],
+  "exclude": ["node_modules"]
 }
