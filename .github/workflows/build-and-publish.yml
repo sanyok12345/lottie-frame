@@ -24,7 +24,7 @@ jobs:
         if: matrix.os == 'ubuntu-latest'
         run: |
           sudo apt-get update
-          sudo apt-get install -y libpng-dev librlottie-dev
+          sudo apt-get install -y libpng-dev librlottie-dev pixman
 
       - name: Install Dependencies (macOS)
         if: matrix.os == 'macos-latest'
@@ -34,7 +34,7 @@ jobs:
           git clone https://github.com/Samsung/rlottie.git
           cd rlottie
           mkdir build && cd build
-          cmake ..
+          cmake .. -DLOTTIE_NO_NEON=ON -DCMAKE_OSX_ARCHITECTURES="x86_64;arm64"
           make -j$(sysctl -n hw.ncpu)
           sudo make install
 
