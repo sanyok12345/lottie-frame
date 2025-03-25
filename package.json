@@ -1,0 +1,48 @@
+{
+  "name": "lottie-frame",
+  "version": "1.0.0",
+  "description": "Convert Lottie animations to PNG frames using Node.js and C++",
+  "main": "lib/index.js",
+  "module": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./lib/index.js",
+      "require": "./lib/index.js",
+      "types": "./lib/index.d.ts"
+    }
+  },
+  "gypfile": true,
+  "license": "MIT",
+  "author": {
+    "name": "sanyok12345",
+    "email": "justsanyok12345@gmail.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sanyok12345/lottie-frame.git"
+  },
+  "files": [
+    "lib"
+  ],
+  "keywords": [
+    "lottie",
+    "animation",
+    "png",
+    "frame",
+    "convert"
+  ],
+  "scripts": {
+    "build": "tsc && node-gyp rebuild",
+    "prepublishOnly": "npm run build",
+    "install": "node-gyp rebuild"
+  },
+  "dependencies": {
+    "node-addon-api": "^7.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.13.13",
+    "node-gyp": "^11.1.0",
+    "typescript": "^5.8.2"
+  }
+}
