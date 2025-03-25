@@ -136,6 +136,19 @@ npm install
 npm run prebuild
 ```
 
+## Roadmap
+
+-   [x] Initial release with basic frame export functionality
+    -   [x] Implement native C++ code for performance
+    -   [x] Implement asynchronous and synchronous frame export
+    -   [x] Implement configurable options for frame, width, height, and quality
+-   [ ] Migrate to a more standard Node.js build system
+    -   [ ] Investigate and select a suitable build tool
+    -   [ ] Implement the new build system
+    -   [ ] Test the build process on different platforms
+-   [ ] Add unit tests
+-   [ ] Implement CI/CD
+
 ## License
 
 MIT
