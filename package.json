@@ -22,7 +22,8 @@
   },
   "files": [
     "lib",
-    "src"
+    "src",
+    "binding.gyp"
   ],
   "keywords": [
     "lottie",
