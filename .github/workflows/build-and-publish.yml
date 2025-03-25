@@ -32,7 +32,7 @@ jobs:
           cd rlottie
           mkdir build
           cd build
-          cmake ..
+          cmake .. -DCMAKE_CXX_FLAGS="-I/usr/local/include/pixman-1" -DCMAKE_EXE_LINKER_FLAGS="-L/usr/local/lib -lpixman-1"
           make
           sudo make install
 
