@@ -2,13 +2,11 @@
   "name": "lottie-frame",
   "version": "1.0.2",
   "description": "Convert Lottie animations to PNG frames using Node.js and C++",
-  "main": "lib/index.js",
-  "module": "lib/index.js",
-  "types": "lib/index.d.ts",
+  "main": "lib/cjs/index.js",
   "exports": {
     ".": {
-      "import": "./lib/index.js",
-      "require": "./lib/index.js",
+      "import": "./lib/index.mjs",
+      "require": "./lib/cjs/index.js",
       "types": "./lib/index.d.ts"
     }
   },
@@ -34,7 +32,9 @@
     "convert"
   ],
   "scripts": {
-    "build": "tsc && node-gyp rebuild",
+    "build": "npm run build:esm && npm run build:cjs",
+    "build:esm": "tsc --module ESNext --outDir lib",
+    "build:cjs": "tsc --module CommonJS --outDir lib/cjs",
     "prebuild": "OPENSSL_FIPS='' prebuild --runtime napi --target 6 --target 7 --target 8 --target 9 --strip",
     "prepublishOnly": "npm run build && npm run prebuild",
     "install": "prebuild-install || node-gyp rebuild"
