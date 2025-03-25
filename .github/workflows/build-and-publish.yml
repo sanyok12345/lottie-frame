@@ -1,0 +1,91 @@
+name: Build and Publish to npm
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+jobs:
+  build:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install Dependencies (Ubuntu)
+        if: matrix.os == 'ubuntu-latest'
+        run: sudo apt-get update && sudo apt-get install -y libpng-dev librlottie-dev
+
+      - name: Install Dependencies (macOS)
+        if: matrix.os == 'macos-latest'
+        run: brew install libpng rlottie
+
+      - name: Install Dependencies (Windows)
+        if: matrix.os == 'windows-latest'
+        run: |
+          choco install python -y
+          npm install -g node-gyp
+
+      - name: Install npm Dependencies
+        run: npm install
+
+      - name: Build
+        run: npm run build
+
+      - name: Prebuild Binaries
+        env:
+          OPENSSL_FIPS: ""
+        run: npm run prebuild
+
+      - name: Upload Prebuilds
+        uses: actions/upload-artifact@v4
+        with:
+          name: prebuilds-${{ matrix.os }}
+          path: prebuilds/
+
+  publish:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          registry-url: 'https://registry.npmjs.org'
+
+      - name: Install npm Dependencies
+        run: npm install
+
+      - name: Build TypeScript
+        run: npm run build
+
+      - name: Download Prebuilds
+        uses: actions/download-artifact@v4
+        with:
+          path: prebuilds-all
+
+      - name: Combine Prebuilds
+        run: |
+          mkdir -p prebuilds
+          cp -r prebuilds-all/prebuilds-ubuntu-latest/* prebuilds/
+          cp -r prebuilds-all/prebuilds-windows-latest/* prebuilds/
+          cp -r prebuilds-all/prebuilds-macos-latest/* prebuilds/
+          ls -l prebuilds/
+
+      - name: Dry-run npm pack
+        run: npm pack --dry-run
+
+      - name: Publish to npm
+        run: npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
