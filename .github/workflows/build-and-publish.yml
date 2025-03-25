@@ -10,7 +10,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [ubuntu-latest, windows-latest, macos-latest]
+        os: [ubuntu-latest, windows-latest]
 
     steps:
       - name: Checkout code
@@ -26,19 +26,6 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y libpng-dev libpixman-1-dev librlottie-dev
-
-      - name: Install Dependencies (macOS)
-        if: matrix.os == 'macos-latest'
-        run: |
-          brew update
-          brew install libpng pixman
-          git clone https://github.com/Samsung/rlottie.git
-          cd rlottie
-          mkdir build && cd build
-          cmake .. -DLOTTIE_NO_NEON=ON -DCMAKE_OSX_ARCHITECTURES="x86_64" -DCMAKE_INSTALL_PREFIX=/usr/local
-          make -j$(sysctl -n hw.ncpu)
-          sudo make install
-          echo "PKG_CONFIG_PATH=/usr/local/lib/pkgconfig:$PKG_CONFIG_PATH" >> $GITHUB_ENV
 
       - name: Install Dependencies (Windows)
         if: matrix.os == 'windows-latest'
@@ -92,7 +79,6 @@ jobs:
           mkdir -p prebuilds
           cp -r prebuilds-all/prebuilds-ubuntu-latest/* prebuilds/
           cp -r prebuilds-all/prebuilds-windows-latest/* prebuilds/
-          cp -r prebuilds-all/prebuilds-macos-latest/* prebuilds/
           ls -l prebuilds/
 
       - name: Dry-run npm pack
