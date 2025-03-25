@@ -31,7 +31,8 @@ jobs:
         if: matrix.os == 'windows-latest'
         run: |
           choco install python --no-progress --limit-output
-          choco install rlottie
+          choco source add --name=chocolatey --priority=10 --source="https://community.chocolatey.org/api/v2/"
+          choco install rlottie --source chocolatey
           npm install -g node-gyp
 
       - name: Install npm Dependencies
