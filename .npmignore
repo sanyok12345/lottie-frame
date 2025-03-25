@@ -1,6 +1,4 @@
-src/
 build/
-*.gyp
 *.md
 *.yml
 node_modules/

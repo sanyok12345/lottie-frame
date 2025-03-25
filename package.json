@@ -22,7 +22,7 @@
   },
   "files": [
     "lib",
-    "prebuilds"
+    "src"
   ],
   "keywords": [
     "lottie",
