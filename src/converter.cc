@@ -11,14 +11,13 @@
 #define DEFAULT_FRAME 0
 
 ConverterData* create_converter_data(napi_env env, const byte* in_data, size_t size) {
-    ConverterData* data = (ConverterData*)malloc(sizeof(ConverterData));
-    if (!data) return nullptr;
+    ConverterData* data = new ConverterData();
 
     data->env = env;
     data->deferred = nullptr;
     data->in_data = (byte*)malloc(size);
     if (!data->in_data) {
-        free(data);
+        delete data;
         return nullptr;
     }
     memcpy(data->in_data, in_data, size);
@@ -35,9 +34,15 @@ ConverterData* create_converter_data(napi_env env, const byte* in_data, size_t s
 }
 
 void destroy_converter_data(ConverterData* data) {
-    if (data->in_data) free(data->in_data);
-    if (data->result_buffer) free(data->result_buffer);
-    free(data);
+    if (data) {
+        if (data->in_data) {
+            free(data->in_data);
+        }
+        if (data->result_buffer) {
+            free(data->result_buffer);
+        }
+        delete data;
+    }
 }
 
 bool convert_to_png_sync(ConverterData* data) {
@@ -63,5 +68,6 @@ bool convert_to_png_sync(ConverterData* data) {
     rlottie::Surface surface(buffer.get(), data->width, data->height, data->width * lp_COLOR_BYTES);
     render_frame_sync(animation, data->frame, surface);
 
-    return write_png(data, buffer.get());
+    bool success = write_png(data, buffer.get());
+    return success;
 }
